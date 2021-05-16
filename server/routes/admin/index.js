@@ -10,9 +10,10 @@ module.exports = app => {
         const model = await Categories.create(req.body)
         res.send(model)
     })
-    //获取分类列表的接口
+    //获取分类列表的接口 .populate表示关联取出，数据库中如果有字段是关联字段的话那么我们就可以用populate把他查出来（数据库category模型中定义了parent）
+    //不只是要他的id，而是要把他的完整信息拿出来变成一个对象。这个对象是id对应的对象
     router.get('/categories', async (req, res) => {
-        const items = await Categories.find()
+        const items = await Categories.find().populate('parent')
         res.send(items)
     })
     //获取详情页的接口
@@ -38,6 +39,5 @@ module.exports = app => {
 
 
 
-    //意思是所有/admin/api文件夹里面的静态文件可以直接被访问。
     app.use('/admin/api', router)
 }

@@ -4,6 +4,9 @@ import Main from '../views/Main.vue'
 import CategoryEdit from '../views/CategoryEdit.vue'
 import CategoryList from '../views/CategoryList.vue'
 
+import ItemEdit from '../views/ItemEdit.vue'
+import ItemList from '../views/ItemList.vue'
+
 
 Vue.use(VueRouter)
 
@@ -17,6 +20,10 @@ const routes = [
       //props:true 表示把url里面的任何参数都注入到categoryedit页面里，这样在categoryedit里面就可以直接使用变量id（页面里面用pros接收）
       {path:'/categories/edit/:id',component:CategoryEdit,props:true},
       {path:'/categories/list',component:CategoryList},
+
+      {path:'/items/create',component:ItemEdit},
+      {path:'/items/edit/:id',component:ItemEdit,props:true},
+      {path:'/items/list',component:ItemList},
     ]
   },
 ]
