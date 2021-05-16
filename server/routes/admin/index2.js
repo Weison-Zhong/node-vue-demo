@@ -51,7 +51,16 @@ module.exports = app => {
     app.post('/admin/api/upload', upload.single('file'), async (req, res, next) => {
         //本身express是没有req.file的，在用了multer后会自动在req中加入该属性。
         const file = req.file
+        //自己拼凑出该图片的url
         file.url = `http://localhost:3000/uploads/${file.filename}`
         res.send(file)
     })
 }
+
+
+/*
+当时测试express用了router中间件的时候在里面获取不到req.params参数  
+是因为忘了加 const router = express.Router({
+    mergeParams:true     忘了加这个导致我找了大半天的bug
+})
+*/

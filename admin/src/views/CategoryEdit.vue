@@ -1,7 +1,12 @@
 <template>
   <div class="about">
-    <h1>{{ id ? "编辑" : "新建" }}物品</h1>
+    <h1>{{ id ? "编辑" : "新建" }}分类</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
+      <el-form-item label="上级分类">
+        <el-select v-model="model.parent">
+          <el-option v-for="item in parents" :key="item._id" :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>
       </el-form-item>
@@ -22,7 +27,7 @@ export default {
   data() {
     return {
       model: {},
-      parents:[],
+      parents: [],
     };
   },
   methods: {
@@ -46,16 +51,16 @@ export default {
       // console.log(res)
       this.model = res.data;
     },
-    async fetchParents(){
+    async fetchParents() {
       const res = await this.$http.get(`rest/categories`);
       //获取到的并不是直接的选项，而只是一个父级的数据
-      this.parents = res.data
-    }
+      this.parents = res.data;
+    },
   },
   created() {
     //执行一个方法去自动获取数据
     this.id && this.fetch();
-    this.fetchParents()
+    this.fetchParents();
   },
 };
 </script>
