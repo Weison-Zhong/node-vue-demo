@@ -4,6 +4,11 @@
 const express = require("express")
 
 const app = express()
+
+//app.set表示给这app实例加一个变量  第二个参数直接放这里不合理的，应该放到一个环境变量中
+app.set('secret','suibiandade')
+
+
 app.use(require('cors')())
 //加上一个中间件
 app.use(express.json())
@@ -20,7 +25,7 @@ db()
 //引入admin目录下index.js模块的函数，直接（）使用，并把app对象传进去。那么在admin里面就有一个app可以用
 //require('./routes/admin/index')(app)
 //通用CRUD版本
-require('./routes/admin/index2')(app)
+require('./routes/admin/index5')(app)
 
 // const indexRouter = require('./routes/admin/index3')   另一种引入模块对象的用法
 

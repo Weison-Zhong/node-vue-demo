@@ -1,3 +1,4 @@
+//加登录验证中间件之前
 //通用CRUD 后端路由里面的index.js
 module.exports = app => {
     const express = require('express')
@@ -39,6 +40,7 @@ module.exports = app => {
     app.use('/admin/api/rest/:resource', async (req, res, next) => {
         const modelName = require('inflection').classify(req.params.resource)
         //给req多挂载一个model属性，后续就可以用req.model去访问了
+        // console.log(modelName)
         req.Model = require(`../../models/${modelName}`)
         next()
     }, router)
@@ -55,11 +57,57 @@ module.exports = app => {
         file.url = `http://localhost:3000/uploads/${file.filename}`
         res.send(file)
     })
+
+    //登录的接口
+    app.post('/admin/api/login', async (req, res) => {
+        const { username, password } = req.body
+        // console.log(username)
+        //1、根据用户名查找用户
+        const AdminUser = require('../../models/AdminUser')
+        const user = await AdminUser.findOne({
+            username: username
+        }).select('+password')
+        if (!user) {
+            //设置状态码后再发送send
+            return res.status(422).send({
+                message: "用户不存在"
+            })
+        }
+
+        //2、校验密码
+        //compareSync比较明文和密文是否匹配 但是这里直接user.password是查不出密码的（因为数据模型定义了select:false）
+        //所以在findone方法加了.select
+        const isValid = require('bcrypt').compareSync(password, user.password)
+        if (!isValid) {
+            //统一用422表示客户端提交的数据有问题
+            return res.status(422).send({
+                message: '密码错误'
+            })
+        }
+
+        //3、返回token
+        const jwt = require('jsonwebtoken')
+        const token = jwt.sign({
+            id: user._id
+        }, app.get('secret'))
+        res.send({token})
+
+
+        //post末尾
+    })
 }
 
 
+
+
+
+
+
+
+
+
 /*
-当时测试express用了router中间件的时候在里面获取不到req.params参数  
+当时测试express用了router中间件的时候在里面获取不到req.params参数
 是因为忘了加 const router = express.Router({
     mergeParams:true     忘了加这个导致我找了大半天的bug
 })
