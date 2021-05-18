@@ -1,5 +1,7 @@
 import axios from 'axios'
 import Vue from 'vue'
+import router from './router'
+
 const http = axios.create({
     baseURL: 'http://localhost:3000/admin/api/'
     //下面这个是用来测试非模块server用
@@ -16,16 +18,22 @@ http.interceptors.response.use(function (response) {
             type: 'error',
             message: error.response.data.message
         })
+
+        if (error.response.status === 401) {
+            router.push('/login')
+        }
     }
     return Promise.reject(error)
 })
 
 // Add a request interceptor
-axios.interceptors.request.use(function (config) {
-    // Do something before request is sent
+//给axios加了一个请求request的拦截器，在每一次axios发起请求的时候会判断是否有token，如果有就把token加到headers上去。
+http.interceptors.request.use(function (config) {
+    if (localStorage.token) {
+        config.headers.Authorization = 'Bearer ' + localStorage.token
+    }
     return config;
 }, function (error) {
-    // Do something with request error
     return Promise.reject(error);
 });
 

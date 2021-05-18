@@ -6,10 +6,13 @@
         <el-input v-model="model.name"></el-input>
       </el-form-item>
       <!-- $http是axios，.defaults是他的默认参数，里面有一个baseURL -->
+      <!-- 用:headers给他传递我们需要的那个Authorization的header
+          :headers="{Authorization:}"  但是我们一般是在全局定义一个函数 -->
       <el-form-item label="图标">
         <el-upload
           class="avatar-uploader"
-          :action="$http.defaults.baseURL + 'upload' "
+          :action="uploadUrl"
+          :headers="getAuthHeaders()"
           :show-file-list="false"
           :on-success="afterUpload"
         >
@@ -38,10 +41,10 @@ export default {
   },
   methods: {
     afterUpload(res) {
-     // console.log(res);
+      // console.log(res);
       //Vue的显示赋值
-      this.$set(this.model,'icon',res.url)
-   //  this.model.icon = res.url
+      this.$set(this.model, "icon", res.url);
+      //  this.model.icon = res.url
     },
     async save() {
       let res;
