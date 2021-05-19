@@ -25,12 +25,15 @@ module.exports = options => {
     const AdminUser = require('../models/AdminUser')
     const jwt = require('jsonwebtoken')
 
-    return async (req, res, next) => {
+    const fn = async (req, res, next) => {
 
         const token = String(req.headers.authorization || '').split(' ').pop()
         assert(token, 401, '请提供jwttoken')
+        //console.log(req.app)
         //这里的req.app等同于外面的app对象  在中间件里面是访问不到路由里面的app的
         const { id } = jwt.verify(token, req.app.get('secret'))
+        console.log(id)
+     
         assert(id, 401, '无效的jwttoken')
 
         req.user = await AdminUser.findById(id)
@@ -38,4 +41,6 @@ module.exports = options => {
         assert(req.user, 401, '请先登录哇→')
         await next()
     }
+
+    return fn
 }

@@ -46,12 +46,32 @@ module.exports = app => {
 
     //登录校验中间件函数   上传需要验证，所哟的CRUD需要验证
     const authMiddleware = require('../../middleware/auth')
-    //
+    //下是原来的写法
+    // const authMiddleware = async (req, res, next) => {
+    //     const token = String(req.headers.authorization || '').split(' ').pop()
+    //     assert(token, 401, '请提供jwttoken')
+    //     const { id } = jwt.verify(token, app.get('secret'))
+    //     console.log(id)
+    //     assert(id, 401, '无效的jwttoken')
+    //     req.user = await AdminUser.findById(id)
+    //     assert(req.user, 401, '请先登录哇→')
+    //     await next()
+    // }
+
     const resourceMiddle = require('../../middleware/resource')
-
     app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddle(), router)
-
-
+    //中间件打包出去之前  可以直接用app.ger('serect')
+    /*   app.use('/admin/api/rest/:resource', async (req, res, next) => {
+           const token = String(req.headers.authorization || '').split(' ').pop()
+           assert(token, 401, '请提供jwttoken')
+           const { id } = jwt.verify(token, app.get('secret'))
+           //console.log(id)
+           assert(id, 401, '无效的jwttoken')
+           req.user = await AdminUser.findById(id)
+           assert(req.user, 401, '请先登录哇→')
+           await next()
+       }, resourceMiddle(), router)
+   */
     const multer = require('multer')
     //定义一个上传中间件  dest是destination目标地址的意思  __dirname表示当前文件的绝对地址
     const upload = multer({ dest: __dirname + '/../../uploads' })

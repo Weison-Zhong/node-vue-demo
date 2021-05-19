@@ -1,0 +1,167 @@
+//reset
+* {
+    //表示不会撑大盒子
+    box-sizing: border-box;
+    //不要高亮
+    outline: none;
+}
+html {
+    //这里定义一个基本字体，后续的xxrem以这个为基准
+    font-size: 13px;
+}
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    //arial是电脑几乎都有的，helvetica是苹果设备的字体，是非衬线字体
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.2em;
+    background-color: #f1f1f1;
+}
+a {
+    color: #999;
+}
+
+//colors   注意这里有分号
+$colors: (
+    "primary": #db9e3f,
+    "white": #fff,
+    "black": #000,
+    "dark": #222,
+    "grey": #999,
+    "light": #f9f9f9,
+    "dark-1": #343440,
+);
+@each $colorkey, $color in $colors {
+    // .text-primary {
+    //     color: #db9e3f;
+    // }
+    .text-#{$colorkey} {
+        color: $color;
+    }
+    .bg-#{$colorkey} {
+        background-color: $color;
+    }
+}
+//text align
+@each $var in (left, center, right) {
+    // .text-left{
+    //     text-align: left;
+    // }  在定义类名的时候要加#用变量
+    .text-#{$var} {
+        text-align: $var;
+    }
+}
+//font-size
+$base-font-size: 1rem;
+$font-sizes: (
+    xs: 0.7692,
+    //10px
+    sm: 0.9231,
+    //12px
+    md: 1,
+    //13px
+    lg: 1.0769,
+    //14px
+    xl: 1.2308,
+    //16px
+);
+@each $sizeKey, $size in $font-sizes {
+    .fs-#{$sizeKey} {
+        font-size: $size * $base-font-size;
+    }
+}
+
+//flex
+.d-flex {
+    display: flex;
+}
+$flex-jc: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    between: space-between,
+    around: space-around,
+);
+
+@each $key, $value in $flex-jc {
+    .jc-#{$key} {
+        justify-content: $value;
+    }
+}
+
+$flex-ai: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    stretch: stretch,
+    //交叉轴上等高
+);
+
+@each $key, $value in $flex-ai {
+    .ai-#{$key} {
+        align-items: $value;
+    }
+}
+
+.flex-column {
+    flex-direction: column;
+}
+.flex-1 {
+    flex: 1;
+}
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+//spacing
+$spacing-types: (
+    m: margin,
+    p: padding,
+);
+$spacing-directions: (
+    t: top,
+    r: right,
+    b: bottom,
+    l: left,
+);
+
+$spacing-base-size: 1rem;
+$spacing-sizes: (
+    0: 0,
+    1: 0.25,
+    2: 0.5,
+    3: 1,
+    4: 1.5,
+    5: 3,
+);
+
+@each $typeKey, $type in $spacing-types {
+    //.m-1
+    @each $sizeKey, $size in $spacing-sizes {
+        .#{$typeKey}-#{$sizeKey} {
+            #{$type}: $size * $spacing-base-size;
+        }
+    }
+    //.mx-1
+    @each $sizeKey, $size in $spacing-sizes {
+        .#{$typeKey}x-#{$sizeKey} {
+            #{$type}-left: $size * $spacing-base-size;
+            #{$type}-right: $size * $spacing-base-size;
+        }
+    }
+    //.my-1
+    @each $sizeKey, $size in $spacing-sizes {
+        .#{$typeKey}y-#{$sizeKey} {
+            #{$type}-top: $size * $spacing-base-size;
+            #{$type}-bottom: $size * $spacing-base-size;
+        }
+    }
+    //三层嵌套循环 .mt-1{margin-top:0.25rem;}......
+    @each $directionKey, $direction in $spacing-directions {
+        @each $sizeKey, $size in $spacing-sizes {
+            .#{$typeKey}#{$directionKey}-#{$sizeKey} {
+                #{$type}-#{$direction}: $size * $spacing-base-size;
+            }
+        }
+    }
+}
