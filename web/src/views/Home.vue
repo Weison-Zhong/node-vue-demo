@@ -41,46 +41,20 @@
       </div>
     </div>
     <!-- end of navicons -->
-    <m-card icon="menu" title="新闻资讯">
-      <div class="nav jc-between">
-        <div class="nav-item active">
-          <div class="nav-link">热门</div>
+    <m-list-card icon="menu" title="新闻资讯" :categories="newsCats">
+      <template #items="{ category }">
+        <div class="py-2" v-for="(news,i) in category.newsList" :key="i">
+          <span>[{{news.categoryName}}]</span>
+          <span>|</span>
+          <span >{{news.title}}</span>
+          <span >{{news.date}}</span>
         </div>
-        <div class="nav-item">
-          <div class="nav-link">新闻</div>
-        </div>
-        <div class="nav-item">
-          <div class="nav-link">新闻</div>
-        </div>
-        <div class="nav-item">
-          <div class="nav-link">新闻</div>
-        </div>
-        <div class="nav-item">
-          <div class="nav-link">新闻</div>
-        </div>
-      </div>
-      <div class="pt-3">
-        <swiper>
-          <swiper-slide v-for="m in 5" :key="m">
-            <div class="py-2" v-for="n in 5" :key="n">
-              <span>[新闻]</span>
-              <span>|</span>
-              <span class="fs-xxs">冰雪圆舞曲优化海报方案票选结果公布</span>
-              <span class="fs-xxs">06/02</span>
-            </div>
-          </swiper-slide>
-        </swiper>
-      </div>
-    </m-card>
+      </template>
+    </m-list-card>
+
     <m-card icon="menu" title="英雄列表"> </m-card>
-     <m-card icon="menu" title="英雄列表"> </m-card>
-      <m-card icon="menu" title="英雄列表"> </m-card>
-    <div>wergdsaf</div>
-    <div>wergdsaf</div>
-    <div>wergdsaf</div>
-    <div>wergdsaf</div>
-    <div>wergdsaf</div>
-    <div>wergdsaf</div>
+    <m-card icon="menu" title="精彩视频"> </m-card>
+    <m-card icon="menu" title="图文攻略s"> </m-card>
     <div>wergdsaf</div>
   </div>
 </template>
@@ -94,6 +68,158 @@ export default {
           el: ".pagination-home",
         },
       },
+      newsCats: [
+        {
+          name: "热门",
+          newsList: [
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+          ],
+        },
+        {
+          name: "新闻",
+          newsList: [
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+          ],
+        },
+        {
+          name: "新闻",
+          newsList: [
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+          ],
+        },
+        {
+          name: "新闻",
+          newsList: [
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+          ],
+        },
+        {
+          name: "新闻",
+          newsList: [
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+            {
+              categoryName: "公告",
+              title: "xx不停机更新公告",
+              date: "06/01 ",
+            },
+          ],
+        },
+      ],
     };
   },
 };

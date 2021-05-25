@@ -26,7 +26,7 @@ db()
 //require('./routes/admin/index')(app)
 //通用CRUD版本
 require('./routes/admin/index5')(app)
-
+require('./routes/web')(app)
 // const indexRouter = require('./routes/admin/index3')   另一种引入模块对象的用法
 
 /*下段是测试代码
