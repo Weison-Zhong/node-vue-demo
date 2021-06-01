@@ -93,6 +93,7 @@ module.exports = app => {
         const user = await AdminUser.findOne({
             username: username
         }).select('+password')
+        console.log('passwadd' + password)
         /*原来的写法
           if (!user) {
               //设置状态码后再发送send
@@ -109,7 +110,9 @@ module.exports = app => {
         //2、校验密码
         //compareSync比较明文和密文是否匹配 但是这里直接user.password是查不出密码的（因为数据模型定义了select:false）
         //所以在findone方法加了.select
-        const isValid = require('bcrypt').compareSync(password, user.password)
+       // m1芯片mac用bcrypt有bug
+        //const isValid = require('bcrypt').compareSync(password, user.password)
+        const isValid = password === user.password
         //必须是isValid，否则抛出422错误状态码和密码错误
         assert(isValid, 422, '密码错误')
         // if (!isValid) {

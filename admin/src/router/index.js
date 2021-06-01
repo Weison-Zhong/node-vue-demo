@@ -64,14 +64,14 @@ const router = new VueRouter({
   routes
 })
 //表示每一次切换路由的时候要做什么
-router.beforeEach((to, from, next) => {
-  // console.log(to.meta)
-  //没有isPublic表示它不是可以公开访问的页面
-  if (!to.meta.isPublic && !localStorage.token) {
-    return next('/login')
-    //console.log('need')
-  }
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   // console.log(to.meta)
+//   //没有isPublic表示它不是可以公开访问的页面
+//   if (!to.meta.isPublic && !localStorage.token) {
+//     return next('/login')
+//     //console.log('need')
+//   }
+//   next()
+// })
 
 export default router

@@ -31,6 +31,7 @@ export default {
       if (this.id) {
         res = await this.$http.put(`rest/admin_users/${this.id}`, this.model);
       } else {
+        console.log(222)
         res = await this.$http.post("rest/admin_users", this.model);
       }
       this.$router.push("/admin_users/list");
