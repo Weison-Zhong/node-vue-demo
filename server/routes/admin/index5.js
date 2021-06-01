@@ -23,7 +23,8 @@ module.exports = app => {
         //这里只是在查询Category的时候才需要加populate  const items = await Categories.find().populate('parent')
         const queryOptions = {}
         if (req.Model.modelName === 'Category') { queryOptions.populate = 'parent' }
-        const items = await req.Model.find().setOptions(queryOptions).limit(10)
+        const items = await req.Model.find().setOptions(queryOptions)
+        console.log(items)
         res.send(items)
     })
     //资源详情

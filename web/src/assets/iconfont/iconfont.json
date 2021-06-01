@@ -25,6 +25,13 @@
       "font_class": "menu1",
       "unicode": "e706",
       "unicode_decimal": 59142
+    },
+    {
+      "icon_id": "13333956",
+      "name": "back-line",
+      "font_class": "back-line",
+      "unicode": "e50d",
+      "unicode_decimal": 58637
     }
   ]
 }

@@ -43,16 +43,34 @@
     <!-- end of navicons -->
     <m-list-card icon="menu" title="新闻资讯" :categories="newsCats">
       <template #items="{ category }">
-        <div class="py-2" v-for="(news,i) in category.newsList" :key="i">
-          <span>[{{news.categoryName}}]</span>
-          <span>|</span>
-          <span >{{news.title}}</span>
-          <span >{{news.date}}</span>
+        <router-link
+        tag="div"
+        :to="`/articles/${news._id}`"
+          class="py-2 fs-lg d-flex"
+          v-for="(news, i) in category.newsList"
+          :key="i"
+        >
+          <span class="text-info">[{{ news.categoryName }}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{
+            news.title
+          }}</span>
+          <span class="text-grey-1 fs-sm">{{ news.createdAt | date }}</span>
+        </router-link>
+      </template>
+    </m-list-card>
+
+    <m-list-card icon="hero" title="英雄列表" :categories="heroCats">
+      <template #items="{ category }">
+        <div class="d-flex flex-wrap" style="margin:0 -0.25rem;">
+          <div class="p-2 text-center" style="width:20%" v-for="(hero, i) in category.heroList" :key="i">
+            <img :src="hero.avatar" class="w-100" alt="" />
+            <div>{{ hero.name }}</div>
+          </div>
         </div>
       </template>
     </m-list-card>
 
-    <m-card icon="menu" title="英雄列表"> </m-card>
     <m-card icon="menu" title="精彩视频"> </m-card>
     <m-card icon="menu" title="图文攻略s"> </m-card>
     <div>wergdsaf</div>
@@ -60,6 +78,7 @@
 </template>
 
 <script>
+import dayjs from "dayjs";
 export default {
   data() {
     return {
@@ -68,159 +87,30 @@ export default {
           el: ".pagination-home",
         },
       },
-      newsCats: [
-        {
-          name: "热门",
-          newsList: [
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-          ],
-        },
-        {
-          name: "新闻",
-          newsList: [
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-          ],
-        },
-        {
-          name: "新闻",
-          newsList: [
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-          ],
-        },
-        {
-          name: "新闻",
-          newsList: [
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-          ],
-        },
-        {
-          name: "新闻",
-          newsList: [
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-            {
-              categoryName: "公告",
-              title: "xx不停机更新公告",
-              date: "06/01 ",
-            },
-          ],
-        },
-      ],
+      //newsCats里面首先是一个数组，里面包含了多个分类，每一个分类里面有一个newsList表示多篇新闻
+      //所以主体应该是分类，关联新闻去把他调出来。
+      newsCats: [],
+      heroCats: [],
     };
+  },
+  filters: {
+    date(val) {
+      return dayjs(val).format("MM/DD");
+    },
+  },
+  methods: {
+    async fetchNewsCats() {
+      const res = await this.$http.get("news/list");
+      this.newsCats = res.data;
+    },
+    async fetchHeroCats() {
+      const res = await this.$http.get("heroes/list");
+      this.heroCats = res.data;
+    },
+  },
+  created() {
+    this.fetchNewsCats();
+    this.fetchHeroCats();
   },
 };
 </script>

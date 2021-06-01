@@ -7,8 +7,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "css-loader": "^3.6.0",
+    "dayjs": "^1.10.5",
     "sass": "^1.32.13",
     "swiper": "^5.4.5",
     "vue": "^2.6.11",
