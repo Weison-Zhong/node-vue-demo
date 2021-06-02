@@ -3,7 +3,9 @@ import Vue from 'vue'
 import router from './router'
 
 const http = axios.create({
-    baseURL: 'http://localhost:3000/admin/api/'
+    //必须是VUE_APP开头后面再是_加自己的变量名  用了vue-cli之后才会有这个process的环境变量
+    baseURL:process.env.VUE_APP_API_URL || '/admin/api',
+   // baseURL: 'http://localhost:3000/admin/api/'
     //下面这个是用来测试非模块server用
     //baseURL:'http://localhost:3000/api/'
 })

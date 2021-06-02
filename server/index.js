@@ -14,6 +14,9 @@ app.use(require('cors')())
 app.use(express.json())
 //表示uploads文件夹下的东西都是静态文件,托管静态文件
 app.use('/uploads',express.static(__dirname + '/uploads'))
+app.use('/admin',express.static(__dirname + '/admin'))
+//表示把当前server文件夹里面的web文件夹托管到跟路径，这样当直接访问3000端口跟路径的时候其实就是访问web文件夹里面的东西
+app.use('/',express.static(__dirname + '/web'))
 
 const db = require('./plugins/db')
 db()

@@ -170,11 +170,22 @@
             ><i class="el-icon-plus"></i> 添加英雄</el-button
           >
           <el-row type="flex" style="flex-wrap: wrap">
-            <el-col :md="12" v-for="(item, index) in model.partners" :key="index">
+            <el-col
+              :md="12"
+              v-for="(item, index) in model.partners"
+              :key="index"
+            >
               <el-form-item label="英雄">
-                <el-select v-model="item.hero"></el-select>
+                <el-select filterable v-model="item.hero">
+                  <el-option
+                    v-for="hero in heroes"
+                    :key="hero._id"
+                    :label="hero.name"
+                    :value="hero._id"
+                  ></el-option>
+                </el-select>
               </el-form-item>
-  
+
               <el-form-item label="描述">
                 <el-input v-model="item.description" type="textarea"></el-input>
               </el-form-item>
@@ -190,7 +201,6 @@
             </el-col>
           </el-row>
         </el-tab-pane>
-
       </el-tabs>
       <el-form-item>
         <el-button type="primary" native-type="submit" style="margin-top: 1rem"
@@ -212,6 +222,7 @@ export default {
     return {
       categories: [],
       items: [],
+      heroes: [],
       model: {
         skills: [],
         partners: [],
@@ -256,11 +267,16 @@ export default {
       const res = await this.$http.get(`rest/items`);
       this.items = res.data;
     },
+    async fetchHeroes() {
+      const res = await this.$http.get(`rest/heroes`);
+      this.heroes = res.data;
+    },
   },
   created() {
     //执行一个方法去自动获取数据
     this.fetchCategories();
     this.fetchItems();
+    this.fetchHeroes();
     this.id && this.fetch();
   },
 };
