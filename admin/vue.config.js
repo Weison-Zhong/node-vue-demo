@@ -1,6 +1,6 @@
 module.exports = {
     //这个publicPath表示生成的静态文件路径
-    //当运行npm run build的时候会自动把NODE——ENV改成production
+    //当运行npm run build的时候会自满足这个===判断的条件（生产环境）
     publicPath: process.env.NODE_ENV === 'production'
       ? '/admin/'
       : '/',

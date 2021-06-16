@@ -81,7 +81,8 @@ module.exports = app => {
         //本身express是没有req.file的，在用了multer后会自动在req中加入该属性。
         const file = req.file
         //自己拼凑出该图片的url
-        file.url = `http://localhost:3000/uploads/${file.filename}`
+        // file.url = `http://localhost:3000/uploads/${file.filename}`
+        file.url = `http://www.weison-zhong.cn/uploads/${file.filename}`
         res.send(file)
     })
 
@@ -110,7 +111,7 @@ module.exports = app => {
         //2、校验密码
         //compareSync比较明文和密文是否匹配 但是这里直接user.password是查不出密码的（因为数据模型定义了select:false）
         //所以在findone方法加了.select
-       // m1芯片mac用bcrypt有bug
+        // m1芯片mac用bcrypt有bug
         //const isValid = require('bcrypt').compareSync(password, user.password)
         const isValid = password === user.password
         //必须是isValid，否则抛出422错误状态码和密码错误
